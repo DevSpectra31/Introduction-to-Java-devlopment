@@ -2,21 +2,17 @@ package com.example.Filter.service;
 
 
 import com.example.Filter.DTO.Student;
-import com.sun.source.tree.TryTree;
+import com.example.Filter.DTO.StudentResponseDto;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StudentService {
 
-    public void CreateStudent(Student student) {
+    public StudentResponseDto CreateStudent(Student student) {
 
-        System.out.println("student saved");
-        System.out.println(student.getName());
-        System.out.println(student.getEmail());
-        try{
-            Thread.sleep(2000);
-        } catch (Exception _){
-
-        }
+        StudentResponseDto studentResponseDto=new StudentResponseDto();
+        studentResponseDto.setName(student.getName());
+        studentResponseDto.setMessage("student saved successfully");
+        return  studentResponseDto;
     }
 }

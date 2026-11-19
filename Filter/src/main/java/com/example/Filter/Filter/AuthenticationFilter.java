@@ -3,14 +3,12 @@ package com.example.Filter.Filter;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-
-@Component
-@Order(2)
-public class AuthFilter implements Filter {
+//
+//@Component
+public class AuthenticationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest serveletrequest, ServletResponse serveletresponse, FilterChain chain) throws IOException, ServletException {
 
@@ -18,24 +16,15 @@ public class AuthFilter implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) serveletresponse;
 
         String token = httpServletRequest.getHeader("token");
-        String apikey=httpServletRequest.getHeader("x-api-key");
-
-        if(token == null ){
-            httpServletResponse.setStatus(401);
-            return ;
-        }
-
-        if(apikey == null || !apikey.equals("scret123")){
+        if(token == null || !token.equals("12345")){
             httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             httpServletResponse.setContentType("application/json");
             httpServletResponse.getWriter().write(
                     "{\n" +
-                            "    \"message\" : \"invalid api key\"\n" +
+                            "    \"message\" : \"Authenication is required\"\n" +
                             "}"
             );
-            return;
         }
-
         chain.doFilter(httpServletRequest,httpServletResponse);
     }
 }
